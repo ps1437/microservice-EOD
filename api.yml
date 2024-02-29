@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  title: Microservices API
+  description: API documentation for User, Product, and Order services
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/users/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: User registered successfully
+
+  /api/users/{userId}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+
+    put:
+      summary: Update user details
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+        - in: requestBody
+          name: body
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: User details updated successfully
+
+    delete:
+      summary: Delete user by ID
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+
+  /api/products:
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: Product created successfully
+
+  /api/products/{productId}:
+    get:
+      summary: Get product by ID
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+
+    put:
+      summary: Update product details
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+        - in: requestBody
+          name: body
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: Product details updated successfully
+
+    delete:
+      summary: Delete product by ID
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product deleted successfully
+
+  /api/orders:
+    post:
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDTO'
+      responses:
+        '200':
+          description: Order created successfully
+
+  /api/orders/{orderId}:
+    get:
+      summary: Get order by ID
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+
+    put:
+      summary: Update order details
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+        - in: requestBody
+          name: body
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDTO'
+      responses:
+        '200':
+          description: Order details updated successfully
+
+    delete:
+      summary: Delete order by ID
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order deleted successfully
+
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - email
+
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+      required:
+        - name
+        - price
+
+    OrderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        productId:
+          type: integer
+      required:
+        - userId
+        - productId
